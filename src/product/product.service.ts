@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { ScraperService } from 'src/scraper/scraper.service';
 
 @Injectable()
 export class ProductService {
-    test(productName: string): string {
-        console.log(productName);
-        return 'Your product ' + productName + ' costs 1000';
+    constructor(private scraperService: ScraperService) {}
+
+    async getProductData(productName: string): Promise<string> {
+        return await this.scraperService.scrape(productName);
     }
 }
