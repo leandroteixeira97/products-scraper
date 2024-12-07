@@ -6,7 +6,7 @@ export class ProductController {
     constructor(private productService: ProductService) {}
 
     @Post(':product')
-    getProductData(@Param('product') productName: string): string {
-        return this.productService.getProductData(productName);
+    async getProductData(@Param('product') productName: string): Promise<string> {
+        return await this.productService.getProductData(productName);
     }
 }
