@@ -1,18 +1,27 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { map } from 'rxjs';
+import { JSDOM } from 'jsdom';
 
 @Injectable()
 export class ScraperService {
     constructor(private readonly httpService: HttpService) {}
 
-    async scrape(productName: string): Promise<string> {
-        const url: string = 'https://www.amazon.com.br/';
+    scrape(productName: string): string {
+        const url = ''
 
-        const response = await this.httpService.get(url);
+        this.httpService
+            .get(url + productName)
+            .pipe(map((response) => response.data))
+            .subscribe((data) => {
+                const prices = [];
 
-        console.log(productName);
-        console.log(response);
+                const domElement = new JSDOM(data);
+                const document = domElement.window.document;
 
-        return '';
+                //To do
+            });
+
+        return productName;
     }
 }

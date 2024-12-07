@@ -5,7 +5,7 @@ import { ScraperService } from 'src/scraper/scraper.service';
 export class ProductService {
     constructor(private scraperService: ScraperService) {}
 
-    async getProductData(productName: string): Promise<string> {
-        return await this.scraperService.scrape(productName);
+    getProductData(productName: string): string {
+        return this.scraperService.scrape(productName);
     }
 }
